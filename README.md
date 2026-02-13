@@ -16,24 +16,24 @@ This repository contains a Dockerfile and docker-compose configuration for runni
 
 1. **Build and start the container:**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 2. **Get the API token:**
    ```bash
-   docker-compose exec surge cat /root/.surge/token
+   docker compose exec surge surge token
    ```
    
    Save this token - you'll need it to authenticate API requests and connect remotely.
 
 3. **Check server status:**
    ```bash
-   docker-compose exec surge surge server status
+   docker compose exec surge surge server status
    ```
 
 4. **View logs:**
    ```bash
-   docker-compose logs -f surge
+   docker compose logs -f surge
    ```
 
 ### Using Docker CLI
@@ -55,7 +55,7 @@ This repository contains a Dockerfile and docker-compose configuration for runni
 
 3. **Get the API token:**
    ```bash
-   docker exec surge-server cat /root/.surge/token
+   docker exec surge-server surge token
    ```
 
 ## Usage
@@ -84,29 +84,29 @@ You can add downloads to the server using:
 
 - **Stop the server:**
   ```bash
-  docker-compose down
+  docker compose down
   ```
 
 - **Restart the server:**
   ```bash
-  docker-compose restart
+  docker compose restart
   ```
 
 - **Update to latest Surge version:**
   ```bash
   make build-latest
-  docker-compose up -d
+  docker compose up -d
   ```
   
   Or without make:
   ```bash
-  docker-compose build --no-cache
-  docker-compose up -d
+  docker compose build --no-cache
+  docker compose up -d
   ```
 
 - **View container logs:**
   ```bash
-  docker-compose logs -f
+  docker compose logs -f
   ```
 
 - **Access downloads:**
@@ -119,7 +119,7 @@ The docker-compose setup includes two volumes:
 - `./downloads` - Where downloaded files are stored
 - `./surge-config` - Stores surge configuration and the API token
 
-You can modify these paths in the `docker-compose.yml` file to suit your needs.
+You can modify these paths in the `compose.yml` file to suit your needs.
 
 ### Version Pinning (Optional)
 
@@ -133,14 +133,14 @@ By default, the Dockerfile fetches the latest Surge release. If you want to pin 
 
 2. Rebuild the image:
    ```bash
-   docker-compose build --no-cache
+   docker compose build --no-cache
    ```
 
 ## Port Configuration
 
 By default, Surge runs on port 1700. If you need to change this:
 
-1. Update the port mapping in `docker-compose.yml`:
+1. Update the port mapping in `compose.yml`:
    ```yaml
    ports:
      - "8080:1700"  # Maps host port 8080 to container port 1700
@@ -148,7 +148,7 @@ By default, Surge runs on port 1700. If you need to change this:
 
 2. Restart the container:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 ## Building for Specific Architecture
@@ -169,14 +169,14 @@ docker build --platform linux/arm64 -t surge:arm64 .
 
 Check the logs:
 ```bash
-docker-compose logs surge
+docker compose logs surge
 ```
 
 ### Can't connect to server
 
 1. Verify the container is running:
    ```bash
-   docker-compose ps
+   docker compose ps
    ```
 
 2. Check if the port is accessible:
@@ -184,7 +184,7 @@ docker-compose logs surge
    curl http://localhost:1700/health
    ```
 
-3. Ensure you're using the correct token from `/root/.surge/token`
+3. Ensure you're using the correct token
 
 ### Downloads not persisting
 
