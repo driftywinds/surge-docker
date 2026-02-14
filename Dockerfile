@@ -2,6 +2,8 @@ FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates curl jq
 
+ARG SURGE_VERSION=""
+
 RUN ARCH=$(uname -m) && \
     case ${ARCH} in \
         x86_64) SURGE_ARCH="amd64" ;; \
@@ -9,8 +11,12 @@ RUN ARCH=$(uname -m) && \
         armv7l) SURGE_ARCH="arm64" ;; \
         *) echo "Unsupported architecture: ${ARCH}" && exit 1 ;; \
     esac && \
-    echo "Fetching latest surge release..." && \
-    SURGE_VERSION=$(curl -s https://api.github.com/repos/surge-downloader/surge/releases/latest | jq -r .tag_name | sed 's/^v//') && \
+    if [ -z "$SURGE_VERSION" ]; then \
+        echo "Fetching latest surge release..."; \
+        SURGE_VERSION=$(curl -s https://api.github.com/repos/surge-downloader/surge/releases/latest | jq -r .tag_name | sed 's/^v//'); \
+    else \
+        echo "Using specified surge version: $SURGE_VERSION"; \
+    fi && \
     echo "Downloading surge v${SURGE_VERSION} for architecture: ${SURGE_ARCH}" && \
     curl -L -o /tmp/surge.tar.gz \
         "https://github.com/surge-downloader/surge/releases/download/v${SURGE_VERSION}/surge_${SURGE_VERSION}_linux_${SURGE_ARCH}.tar.gz" && \
