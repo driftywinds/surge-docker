@@ -6,8 +6,9 @@ This repository contains a Dockerfile and docker-compose configuration for runni
 
 ### Using Docker Compose (Recommended)
 
-1. **Build and start the container:**
+1. **Download the compose file and start the container:**
    ```bash
+   wget https://raw.githubusercontent.com/driftywinds/surge-docker/refs/heads/main/compose.yml
    docker compose up -d
    ```
 
@@ -32,10 +33,12 @@ This repository contains a Dockerfile and docker-compose configuration for runni
 
 1. **Build the image:**
    ```bash
+   git clone https://github.com/driftywinds/surge-docker
+   cd surge-docker
    docker build -t surge:latest .
    ```
 
-2. **Run the container:**
+3. **Run the container:**
    ```bash
    docker run -d \
      --name surge-server \
@@ -45,7 +48,7 @@ This repository contains a Dockerfile and docker-compose configuration for runni
      surge:latest
    ```
 
-3. **Get the API token:**
+4. **Get the API token:**
    ```bash
    docker exec surge-server surge token
    ```
