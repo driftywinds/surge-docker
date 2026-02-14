@@ -2,6 +2,11 @@
 
 This repository contains a Dockerfile and docker-compose configuration for running [Surge](https://github.com/surge-downloader/surge) - a blazing fast download manager written in Go - in server mode.
 
+> [!IMPORTANT]
+> The Surge dev team has merged my PR and now they have official docker images!
+> You can check them out here - [`ghcr.io/surge-downloader/surge`](https://github.com/surge-downloader/surge/pkgs/container/surge).
+> Instructions are the same as here, just remember to change the image pull link!
+
 ## Quick Start
 
 ### Using Docker Compose (Recommended)
