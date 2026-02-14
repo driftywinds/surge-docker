@@ -1,6 +1,6 @@
 services:
   surge:
-    image: ghcr.io/driftywinds/surge # OR surge:latest if building
+    image: ghcr.io/driftywinds/surge-docker # OR surge:latest if building
 #    build:
 #      context: .
 #      dockerfile: Dockerfile
