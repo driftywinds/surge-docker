@@ -9,7 +9,17 @@ services:
       - "1700:1700"
     volumes:
       - ./downloads:/downloads
-      - ./surge-config:/root/.surge
+      - ./surge-config:/root/.local/state/surge
     restart: unless-stopped
     environment:
       - TZ=UTC
+    deploy:
+      resources: 
+        limits:
+          cpus: '0.5'
+          memory: 256M # change to your liking or specs
+    logging:
+      driver: "json-file" # etting this up proper you want to see logs all Terminal based apps should have logs
+      options:
+        max-size: "10m"
+        max-file: "3"
